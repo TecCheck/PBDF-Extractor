@@ -582,47 +582,6 @@ namespace PBDF_Extractor
 			currentIndex += 4;
 			Console.WriteLine("Speed: " + characteristics.speed);
 		}
-
-		void LoadData(byte[] fileData)
-		{
-			//writing encoded Data into blocks
-			byte[] block = new byte[blockSize];
-			uint blockByteIndex = 0;
-			uint index = 0;
-			while (index < fileData.Length)
-			{
-				block[blockByteIndex] = fileData[index];
-				index++;
-				blockByteIndex++;
-				if (blockByteIndex == blockSize)
-				{
-					blocks.Add(new PBDFBlock(blockSize, block, coderKey, coderType));
-					blockByteIndex = 0;
-					block = new byte[blockSize];
-				}
-			}
-
-			//writing decoded data from blocks into an array (without checksums)
-			long byteCount = blocks[0].GetData().Length * blocks.Count;
-			decodedData = new byte[byteCount];
-			int decodedDataIndex = 0;
-			foreach (PBDFBlock pbdfBlock in blocks)
-			{
-				byte[] pbdfData = pbdfBlock.GetData();
-				int dataLenght = pbdfData.Length;
-				for (int i = 0; i < dataLenght; i++)
-				{
-					decodedData[decodedDataIndex] = pbdfData[i];
-					decodedDataIndex++;
-				}
-			}
-			string s = "";
-			for (int i = 0; i < 16; i++)
-			{
-				s += decodedData[i] + ", ";
-			}
-		}
-
 	}
 
 	public class Noise

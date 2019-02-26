@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bl4.cs" />
     <Compile Include="Bv4.cs" />
     <Compile Include="Gui.cs">
       <SubType>Form</SubType>
