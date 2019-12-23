@@ -157,8 +157,30 @@ namespace PBDF_Extractor
 			Color c = Color.FromArgb(rb, gb, bb);
 			return c;
 		}
+        public static Color GetColor555(ushort rgb)
+        {
+            string s = Convert.ToString(rgb, 2).PadLeft(16, '0');
+            //Console.WriteLine(s);
+            string r = s.Substring(1, 5).PadLeft(8, '0');
+            string g = s.Substring(6, 5).PadLeft(8, '0');
+            string b = s.Substring(11, 5).PadLeft(8, '0');
 
-		public static double GetDouble(byte[] data, int startIndex)
+            string rgbS = r + g + b;
+            //Console.WriteLine(s);
+            //Console.WriteLine(r + "," + g + "," + b);
+
+            byte rb = Convert.ToByte(r, 2);
+            rb *= 8;
+            byte gb = Convert.ToByte(g, 2);
+            gb *= 8;
+            byte bb = Convert.ToByte(b, 2);
+            bb *= 8;
+
+            Color c = Color.FromArgb(rb, gb, bb);
+            return c;
+        }
+
+        public static double GetDouble(byte[] data, int startIndex)
 		{
 			int fractionalBits = 16;
 			double dQNumber;

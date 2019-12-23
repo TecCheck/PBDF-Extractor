@@ -27,12 +27,19 @@ namespace PBDF_Extractor
 
 		}
 
-		public void LoadData(byte[] fileData)
+		public void LoadData(string fileName, CoderType coderType, uint coderKey, uint blockSize)
+		{
+			byte[] fileData = File.ReadAllBytes(fileName);
+			LoadData(fileData, coderType, coderKey, blockSize);
+		}
+
+		public void LoadData(byte[] fileData, CoderType coderType, uint coderKey, uint blockSize)
 		{
 			//writing encoded Data into blocks
 			byte[] block = new byte[blockSize];
 			uint blockByteIndex = 0;
 			uint index = 0;
+			blocks = new List<PBDFBlock>();
 			while (index < fileData.Length)
 			{
 				block[blockByteIndex] = fileData[index];

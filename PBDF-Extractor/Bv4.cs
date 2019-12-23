@@ -2,15 +2,14 @@
  * http://www.bendlins.de/nico/pod/
  */
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Drawing;
-using static PBDF_Extractor.Utils;
 using System.Drawing.Imaging;
 using System.Threading;
+using static PBDF_Extractor.Utils;
 using static PBDF_Extractor.Bv4;
 
 namespace PBDF_Extractor
@@ -37,8 +36,6 @@ namespace PBDF_Extractor
 
 		public List<PBDFBlock> blocks = new List<PBDFBlock>();
 
-		public int currentIndex = 0;
-
 		public string name = "";
 		public Material material = new Material();
 		public Objects objects = new Objects();
@@ -47,10 +44,12 @@ namespace PBDF_Extractor
 
 		public double[] positions = new double[15];
 
+		int currentIndex = 0;
+
 		public Bv4(string fileName) : base(fileName)
 		{
 			byte[] fileData = File.ReadAllBytes(fileName);
-			LoadData(fileData);
+			LoadData(fileData, coderType, coderKey, blockSize);
 			Console.WriteLine("fileSize: " + fileData.Length);
 			Console.WriteLine("decodedData: " + decodedData.Length);
 			AnalyzeData();
